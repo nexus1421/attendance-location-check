@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Attendance Location Check</title>
+</head>
+<body>
+  <h2>Mark Your Attendance</h2>
+  <button id="checkBtn">Check Location & Proceed</button>
+  <p id="message"></p>
+
+  <script>
+    // Replace with your campus latitude and longitude:
+    const allowedLat = 22.73798668476064;   // e.g., 12.9716
+    const allowedLng = 88.45761385253562;  // e.g., 77.5946
+    const allowedRadiusKm = 0.1; // 100 meters radius (change if needed)
+
+    function toRad(x) { return x * Math.PI / 180; }
+
+    function getDistance(lat1, lng1, lat2, lng2) {
+      const R = 6371; // Earth radius in km
+      const dLat = toRad(lat2 - lat1);
+      const dLng = toRad(lng2 - lng1);
+      const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng/2)**2;
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    }
+
+    document.getElementById('checkBtn').onclick = () => {
+      if (!navigator.geolocation) {
+        document.getElementById('message').innerText = "Geolocation is not supported by your browser.";
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(position => {
+        const dist = getDistance(position.coords.latitude, position.coords.longitude, allowedLat, allowedLng);
+        if (dist <= allowedRadiusKm) {
+          // Replace with your Google Form link here:
+          window.location.href = https://docs.google.com/forms/d/e/1FAIpQLSeN_YwUWDJ0VmkvyefGMzOqMjAnjLwapSawsHyRXTS5w-0PyA/viewform?usp=header;
+        } else {
+          document.getElementById('message').innerText = "You are not within the allowed location to mark attendance.";
+        }
+      }, () => {
+        document.getElementById('message').innerText = "Permission to access location was denied.";
+      });
+    }
+  </script>
+</body>
+</html>
