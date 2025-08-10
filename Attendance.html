@@ -34,7 +34,7 @@
         const dist = getDistance(position.coords.latitude, position.coords.longitude, allowedLat, allowedLng);
         if (dist <= allowedRadiusKm) {
           // Replace with your Google Form link here:
-          window.location.href = https://docs.google.com/forms/d/e/1FAIpQLSeN_YwUWDJ0VmkvyefGMzOqMjAnjLwapSawsHyRXTS5w-0PyA/viewform?usp=header;
+          window.location.href = https://docs.google.com/forms/d/e/1FAIpQLSeN_YwUWDJ0VmkvyefGMzOqMjAnjLwapSawsHyRXTS5w-0PyA/viewform?usp=dialog;
         } else {
           document.getElementById('message').innerText = "You are not within the allowed location to mark attendance.";
         }
